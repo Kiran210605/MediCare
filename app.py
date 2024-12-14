@@ -59,25 +59,25 @@ def predict_diseases(models, user_input):
 
     st.subheader("Prediction Results")
     
-    if ckd_rf_prediction[0] == 1 or ckd_ann_prediction >= 0.5:
-        st.error("🔴 You may have Chronic Kidney Disease (CKD).")
-    else:
+    if ckd_rf_prediction[0] == 0 and ckd_ann_prediction < 0.5:
         st.success("🟢 You are less likely to have Chronic Kidney Disease (CKD).")
-
-    if diabetes_rf_prediction[0] == 1:
-        st.error("🔴 You may have Diabetes.")
     else:
+        st.error("🔴 You may have Chronic Kidney Disease (CKD).")
+
+    if diabetes_rf_prediction[0] == 0:
         st.success("🟢 You are less likely to have Diabetes.")
-
-    if ckd_rf_prediction[0] == 1:
-        st.error("🔴 You may have Hypertension (High Blood Pressure).")
     else:
+        st.error("🔴 You may have Diabetes.")
+
+    if ckd_rf_prediction[0] == 0:
         st.success("🟢 You are less likely to have Hypertension (High Blood Pressure).")
-
-    if ckd_rf_prediction[0] == 1:
-        st.error("🔴 You may have Anemia.")
     else:
+        st.error("🔴 You may have Hypertension (High Blood Pressure).")
+
+    if ckd_rf_prediction[0] == 0:
         st.success("🟢 You are less likely to have Anemia.")
+    else:
+        st.error("🔴 You may have Anemia.")
 
 # Main Execution
 user_input = get_user_input()
