@@ -53,28 +53,28 @@ def predict_diseases(models, user_input):
     user_input_imputed = imputer.transform(user_input)
     user_input_scaled = scaler.transform(user_input_imputed)
 
-    ckd_rf_prediction = models['Random Forest'].predict(user_input_scaled)
+    ckd_rf_prediction = models['Random Forest'].predict(user_input_scaled)[0]
     ckd_ann_prediction = models['Keras ANN'].predict(user_input_scaled)[0][0]
-    diabetes_rf_prediction = models['Random Forest'].predict(user_input_scaled)
+    diabetes_rf_prediction = models['Random Forest'].predict(user_input_scaled)[0]
 
     st.subheader("Prediction Results")
     
-    if ckd_rf_prediction[0] == 0 and ckd_ann_prediction < 0.5:
+    if ckd_rf_prediction == 0 and ckd_ann_prediction < 0.5:
         st.success("🟢 You are less likely to have Chronic Kidney Disease (CKD).")
     else:
         st.error("🔴 You may have Chronic Kidney Disease (CKD).")
 
-    if diabetes_rf_prediction[0] == 0:
+    if diabetes_rf_prediction == 0:
         st.success("🟢 You are less likely to have Diabetes.")
     else:
         st.error("🔴 You may have Diabetes.")
 
-    if ckd_rf_prediction[0] == 0:
+    if ckd_rf_prediction == 0:
         st.success("🟢 You are less likely to have Hypertension (High Blood Pressure).")
     else:
         st.error("🔴 You may have Hypertension (High Blood Pressure).")
 
-    if ckd_rf_prediction[0] == 0:
+    if ckd_rf_prediction == 0:
         st.success("🟢 You are less likely to have Anemia.")
     else:
         st.error("🔴 You may have Anemia.")
